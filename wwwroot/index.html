@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arma Reflection Server Attack</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro|Material+Icons&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/main.css">
+    <!-- TODO: add async tags -->
+    <script type="module" src="/js/testForm.js"></script>
+    <script type="module" src="/js/vulnerableServers.js"></script>
+</head>
+<body>
+    <main>
+        <h1>Test you server's vulnerability to UDP reflection attacks via Steam Query</h1>
+        <article id="vulnerable-servers">
+            Loading...
+        </article>
+        <form id="test">
+            <h2>Test my Server</h2>
+            <label for="host">Hostname or IP</label>
+            <input type="text" id="host" placeholder="server.community.com or 127.0.0.1" required="true" name="hostname" />
+            <label for="port">Port</label>
+            <input type="number" id="port" value="2303"  name="port" required="true" />
+            <button type="submit">Test my server</button>
+        </form>
+        <article id="explanation">
+            <h2>
+                What is going on?
+            </h2>
+            <p>
+                At the moment a lot of steam-game servers are vulnerable to UDP reflection attacks and abuse due to a missing challenge response in steams query protocol. This protocol is used to give users server information, like sever name, player count etc.
+            </p>
+        </article>
+        <article id="udp-reflection">
+            <h2>What is an UDP reflection attack and how does it work?</h2>
+            <ul>
+                <li>
+                    <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/udp-reflection-attacks.html" target="_blank">Click here</a>
+                    for a explanation from the Amazon AWS documentation.
+                </li>
+                <li>
+                    <a href="https://www.youtube.com/watch?v=0RJQVkavFIA&t=851s" target="_blank">Click here</a>
+                    for a video from LiveOverlow in which he explains UDP reflection attacks.
+                </li>
+            </ul>
+        </article>
+        <article id="how-to-fix">
+            <h2>What can I do fix my server's vulnerability?</h2>
+        </article>
+    </main>
+    <footer>
+        Made by Dragon with ❤️ (<a href="https://github.com/dragonger">Github</a>)
+    </footer>
+</html>
