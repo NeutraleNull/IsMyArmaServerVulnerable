@@ -36,7 +36,7 @@ namespace IsMyArmaServerVulnerableApi
                     builder =>
                     {
                         builder.WithOrigins("https://localhost:5001",
-                            "http://www.contoso.com");
+                            "https://arma.neutralenull.de");
                     });
             });
             services.AddControllers();
@@ -46,7 +46,7 @@ namespace IsMyArmaServerVulnerableApi
             });
             services.AddTransient<ArmaServerQueryService>();
             services.AddTransient<SteamServerQueryService>();
-            //services.AddHostedService<UpdateServerDataBackgroundService>();
+            services.AddHostedService<UpdateServerDataBackgroundService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
