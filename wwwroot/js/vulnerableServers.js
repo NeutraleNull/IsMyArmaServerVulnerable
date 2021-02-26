@@ -1,4 +1,4 @@
-const API_URL = 'https://arma.neutralenull.de/api/TestServer/serversvulnerable';
+const API_URL = '/api/TestServer/serversvulnerable';
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {

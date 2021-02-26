@@ -1,4 +1,4 @@
-const API_URL = 'https://arma.neutralenull.de/api/TestServer/testserver';
+const API_URL = '/api/TestServer/testserver';
 
 window.addEventListener('DOMContentLoaded', () => {
     /** @type {HTMLFormElement} */
