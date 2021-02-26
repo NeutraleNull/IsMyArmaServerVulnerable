@@ -28,20 +28,21 @@ namespace IsMyArmaServerVulnerableApi.Services
                 try
                 {
                     _logger.LogInformation($"Updating server list");
-                    var serverList = await _steamServerQueryService.GetArmaServerListAsync(10000);
+                    var serverList = await _steamServerQueryService.GetArmaServerListApiAsync();
+
                     _logger.LogInformation($"Server list updated! Found: {serverList.Count} server");
                     var resultList = new ThreadSafeList<ArmaServerQueryService.TestResponse>();
 
                     _logger.LogInformation("Starting query run");
+                    ThreadPool.SetMaxThreads(100, 200);
                     Parallel.ForEach(serverList,
-                        new ParallelOptions {CancellationToken = stoppingToken, MaxDegreeOfParallelism = 400},
                         async point =>
                         {
                             var armaServerQuery = new ArmaServerQueryService();
                             try
                             {
                                 var result = await
-                                    armaServerQuery.TestServerAsync(point.Address.ToString(), point.Port, 5);
+                                    armaServerQuery.TestServerAsync(point.Address.ToString(), point.Port, 2, 2);
                                 await resultList.AddAsync(result, stoppingToken);
                             }
                             catch
