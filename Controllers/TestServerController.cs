@@ -31,6 +31,7 @@ namespace IsMyArmaServerVulnerableApi.Controllers
             try
             {
                 var response = await _armaServerQuery.TestServerAsync(request.Hostname, request.Port, 3, 3);
+                _logger.LogInformation($"IP {HttpContext.Connection.RemoteIpAddress} tested {request.Hostname}. Is reachable: {response.IsReachable}, Vulnerable: {response.IsVulnerable}");
                 return Ok(new TestServerResponse
                 {
                     IsReachable = response.IsReachable,
