@@ -1,4 +1,4 @@
-const API_URL = 'https://localhost:5001/api/TestServer/serversvulnerable';
+const API_URL = 'https://arma.neutralenull.de/api/TestServer/serversvulnerable';
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
@@ -17,7 +17,9 @@ window.addEventListener('DOMContentLoaded', async () => {
 
         processResponse(responseBody);
     } catch (err) {
-        processError(err);
+        console.error(err);
+        const el = document.getElementById('vulnerable-servers');
+        el.remove();
     }
 });
 
@@ -27,21 +29,8 @@ window.addEventListener('DOMContentLoaded', async () => {
  */
 function processResponse({ servers, serversReachable, serversVulnerable }) {
     const el = document.getElementById('vulnerable-servers');
-    
-    if (servers === 0) {
-        el.innerHTML = `Still indexing. Check back later.`;
-        return;
-    }
 
+    const percent = Math.round((serversVulnerable / serversReachable) * 100);
 
-    el.innerHTML = `Currently ${serversVulnerable} out of ${serversReachable} Arma 3 servers are vulnerable. That is over ${Math.round((serversVulnerable / serversReachable) * 100)}%`;
-}
-
-/**
- * 
- * @param {Error} err
- */
-function processError(err) {
-    // TODO:
-    console.error(err);
+    el.innerHTML = `${serversVulnerable} out of ${serversReachable} Arma 3 servers are vulnerable to UDP Reflection Attacks<br/>That is approx ${Number.isNaN(percent) ? 100 : percent}% of all Arma 3 servers.`;
 }

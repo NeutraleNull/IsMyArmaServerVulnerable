@@ -8,50 +8,97 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Oswald|Source+Sans+Pro|Material+Icons&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/main.css">
-    <!-- TODO: add async tags -->
-    <script type="module" src="/js/testForm.js"></script>
-    <script type="module" src="/js/vulnerableServers.js"></script>
+    <script type="module" src="/js/testForm.js" defer></script>
+    <script type="module" src="/js/vulnerableServers.js" defer></script>
 </head>
 <body>
     <main>
-        <h1>Test you server's vulnerability to UDP reflection attacks via Steam Query</h1>
-        <article id="vulnerable-servers">
-            Loading...
-        </article>
-        <form id="test">
-            <h2>Test my Server</h2>
-            <label for="host">Hostname or IP</label>
-            <input type="text" id="host" placeholder="server.community.com or 127.0.0.1" required="true" name="hostname" />
-            <label for="port">Port</label>
-            <input type="number" id="port" value="2303"  name="port" required="true" />
-            <button type="submit">Test my server</button>
-        </form>
+        <section id="landing">
+            <article id="vulnerable-servers">
+                Loading...
+            </article>
+            <form id="test">
+                <label for="host">Hostname or IP</label>
+                <input type="text" id="host" required="true" name="hostname" />
+                <span>This can be either an IP or a domain.</span>
+                <label for="port">Steam Query Port</label>
+                <input type="number" id="port" value="2303"  name="port" required="true" />
+                <span>This is usually your game server port +1. So if your port is 2302 your steam query port is 2303</span>
+                <button type="submit">Test my server</button>
+                <div class="loader" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+            </form>
+            <span style="cursor: pointer;" id="more-info" onclick="document.getElementById('explanation').scrollIntoView()">
+                More Info
+                <br/>
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 960 560" enable-background="new 0 0 960 560" xml:space="preserve">
+                    <g fill="currentColor">
+                        <path d="M480,344.181L268.869,131.889c-15.756-15.859-41.3-15.859-57.054,0c-15.754,15.857-15.754,41.57,0,57.431l237.632,238.937
+                            c8.395,8.451,19.562,12.254,30.553,11.698c10.993,0.556,22.159-3.247,30.555-11.698l237.631-238.937
+                            c15.756-15.86,15.756-41.571,0-57.431s-41.299-15.859-57.051,0L480,344.181z"/>
+                    </g>
+                </svg>
+            </span>
+        </section>
         <article id="explanation">
             <h2>
                 What is going on?
             </h2>
             <p>
-                At the moment a lot of steam-game servers are vulnerable to UDP reflection attacks and abuse due to a missing challenge response in steams query protocol. This protocol is used to give users server information, like sever name, player count etc.
+                At the moment, a lot of steam game servers are vulnerable to UDP reflection attacks and abuse due to an error in steams query protocol. This protocol is used to give users server information like sever name and current players count.
+            </p>
+            <p>
+                This issue was fixed with a <a href="https://steamcommunity.com/discussions/forum/14/2974028351344359625/" rel="noreferrer" target="_blank">new release of the steam client in December of 2020</a>, but the fix is not enabled by default due to backwards compatibility and most games haven't even shipped the new steam client binaries yet.
+            </p>
+            <p>
+                Check out <a href="#how-to-fix">our guide</a> on the bottom of this page how to fix your server.
             </p>
         </article>
         <article id="udp-reflection">
-            <h2>What is an UDP reflection attack and how does it work?</h2>
-            <ul>
-                <li>
-                    <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/udp-reflection-attacks.html" target="_blank">Click here</a>
-                    for a explanation from the Amazon AWS documentation.
-                </li>
-                <li>
-                    <a href="https://www.youtube.com/watch?v=0RJQVkavFIA&t=851s" target="_blank">Click here</a>
-                    for a video from LiveOverlow in which he explains UDP reflection attacks.
-                </li>
-            </ul>
+            <h2>What is an UDP Reflection Attack?</h2>
+            <p>
+                Check out <a href="https://www.youtube.com/watch?v=0RJQVkavFIA&t=851s" rel="noreferrer" target="_blank">this YouTube video from LiveOverflow</a> or <a href="https://docs.aws.amazon.com/whitepapers/latest/aws-best-practices-ddos-resiliency/udp-reflection-attacks.html" rel="noreferrer" target="_blank">this explanation in the Amazon AWS documentation</a>.
+                Both do a pretty good job explaining UDP reflection attacks.
+            </p>
         </article>
         <article id="how-to-fix">
-            <h2>What can I do fix my server's vulnerability?</h2>
+            <h2>How can I fix my server's vulnerability?</h2>
+            <p style="font-style: italic;">Disclaimer: This guide is only suited for fixing the server vulnerability for Arma 3 servers running on Windows although, it may work similarly for other games / operating systems.<br/>We do not take any responsibility for issues you may encounter.</p>
+            <h3>Step 1: Check if your server is vulnerable</h3>
+            <p>Use this tool to check if your server is vulnerable. If it is not vulnerable you don't have to fix anything.</p>
+            <h3>Step 2: Shutdown server</h3>
+            <p>You should know how to do that yourself :P</p>
+            <h3>Step 3: Download new binaries</h3>
+            <p>The new steam client binaries for all operating systems can be downloaded <a href="http://media.steampowered.com/apps/steamworks/steam_bins_6246211.zip" rel="noreferrer" target="_blank">here</a>.</p>
+            <h3>Step 4: Update server's steam client</h3>
+            <p>
+                <span>Head to your Arma 3 Server installation directory. You'll find 6 DLLs:</span>
+                <ul>
+                    <li>steamclient.dll</li>
+                    <li>steamclient64.dll</li>
+                    <li>tier0_s.dll</li>
+                    <li>tier0_s64.dll</li>
+                    <li>vstdlib_s.dll</li>
+                    <li>vstdlib_s64.dll</li>
+                </ul>
+                <span>Replace all those DLLs with the new DLLs within the win32 and win64 directories of the downloaded ZIP.</span>
+            </p>
+            <h3>Step 5: Set environment variable</h3>
+            <p>
+                <span>The fix for UDP reflection attacks is not enabled by default. You need to set the following environment variable:</span>
+                <pre>STEAM_GAMESERVER_A2S_INFO_REQUIRE_CHALLENGE=1</pre>
+                <span>There are a lot of different ways and tutorials how to do this on the internet. Just Google it :D (or even "Bing it" if you're that kind of a person)</span>
+            </p>
+            <h3>Step 6: Restart your server</h3>
+            <p>Although not necessary, you can restart your server just to be 100% sure the environment variable is in effect.</p>
+            <h3>Step 7: Start your server and test again</h3>
+            <p>Start your server and use this tool to check for vulnerabilities again. Your UDP reflection attack vulnerability should now be fixed.</p>
+            <h3>Still having issues?</h3>
+            <p>If you still have issues please head over to the <a href="https://steamcommunity.com/discussions/forum/14/2974028351344359625/" rel="noreferrer" target="_blank">official guide on the steam community</a> and check if there is a solution.</p>
         </article>
     </main>
     <footer>
-        Made by Dragon with ❤️ (<a href="https://github.com/dragonger">Github</a>)
+        Made by Dragon (<a href="https://github.com/dragonger" rel="noreferrer" target="_blank">Github</a>) and DerZade (<a href="https://github.com/DerZade" rel="noreferrer" target="_blank">Github</a>) with ❤️
     </footer>
 </html>
