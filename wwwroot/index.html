@@ -69,30 +69,15 @@
             <p>Use this tool to check if your server is vulnerable. If it is not vulnerable you don't have to fix anything.</p>
             <h3>Step 2: Shutdown server</h3>
             <p>You should know how to do that yourself :P</p>
-            <h3>Step 3: Download new binaries</h3>
-            <p>The new steam client binaries for all operating systems can be downloaded <a href="http://media.steampowered.com/apps/steamworks/steam_bins_6246211.zip" rel="noreferrer" target="_blank">here</a>.</p>
-            <h3>Step 4: Update server's steam client</h3>
-            <p>
-                <span>Head to your Arma 3 Server installation directory. You'll find 6 DLLs:</span>
-                <ul>
-                    <li>steamclient.dll</li>
-                    <li>steamclient64.dll</li>
-                    <li>tier0_s.dll</li>
-                    <li>tier0_s64.dll</li>
-                    <li>vstdlib_s.dll</li>
-                    <li>vstdlib_s64.dll</li>
-                </ul>
-                <span>Replace all those DLLs with the new DLLs within the win32 and win64 directories of the downloaded ZIP.</span>
-            </p>
-            <h3>Step 5: Set environment variable</h3>
+            <h3>Step 3: Set environment variable</h3>
             <p>
                 <span>The fix for UDP reflection attacks is not enabled by default. You need to set the following environment variable:</span>
                 <pre>STEAM_GAMESERVER_A2S_INFO_REQUIRE_CHALLENGE=1</pre>
                 <span>There are a lot of different ways and tutorials how to do this on the internet. Just Google it :D (or even "Bing it" if you're that kind of a person)</span>
             </p>
-            <h3>Step 6: Restart your server</h3>
+            <h3>Step 4: Restart your server</h3>
             <p>Although not necessary, you can restart your server just to be 100% sure the environment variable is in effect.</p>
-            <h3>Step 7: Start your server and test again</h3>
+            <h3>Step 5: Start your server and test again</h3>
             <p>Start your server and use this tool to check for vulnerabilities again. Your UDP reflection attack vulnerability should now be fixed.</p>
             <h3>Still having issues?</h3>
             <p>If you still have issues please head over to the <a href="https://steamcommunity.com/discussions/forum/14/2974028351344359625/" rel="noreferrer" target="_blank">official guide on the steam community</a> and check if there is a solution.</p>
